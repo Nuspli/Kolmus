@@ -1,24 +1,15 @@
-while True:
-    try:
-        from tkinter import Tk, Label, PhotoImage, Toplevel
-        from random import randint
-        from requests import get
-        from PIL import Image as im
-        import io, sys, time, os
-        from playsound import playsound
-        from multiprocessing import Process
-        import webbrowser
-        from pathlib import Path
-        from keyboard import block_key, unblock_key
+import io, sys, time, os
+from tkinter import Tk, Label, PhotoImage, Toplevel
+from random import randint
+from requests import get
+from PIL import Image as im
+from playsound import playsound
+from multiprocessing import Process
+import webbrowser
+from pathlib import Path
+from keyboard import block_key, unblock_key
 
-        break
-
-    except ImportError:
-        dep = ["pillow", "playsound", "requests", "keyboard"]
-        for i in dep:
-            os.system(f"cmd /c pip install {i}")
-
-windows_to_close = 50
+windows_to_close = 10
 
 image_urls =["https://bot.to/wp-content/uploads/2020/09/antirickroll_5f6fcaafddcd9.png",
              "https://styles.redditmedia.com/t5_3d3rqx/styles/communityIcon_j93l74ux7kx51.png?width=256&s=fa2767dae0ab75ef06c6a1a5ca8e4b7b23711c90",
@@ -46,6 +37,7 @@ def music():
 
 
 def on_closing(r):
+
     r.destroy()
     if f == 2*windows_to_close:
         for m in range(150):
@@ -81,7 +73,6 @@ def func1():
     roooot.configure(background='black')
     roooot.geometry(f'{roooot.winfo_screenwidth()}x{roooot.winfo_screenheight()}+0+0')
     roooot.overrideredirect(True)
-
     root = Tk()
 
     root.title("close all windows to free your keyboard xD")
@@ -115,6 +106,3 @@ if __name__=='__main__':
     p2.start()
     p1 = Process(target=func1)
     p1.start()
-
-
-

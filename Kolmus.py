@@ -1,5 +1,5 @@
-import io, sys, time, os
-from tkinter import Tk, Label, PhotoImage, Toplevel
+import io, sys, time
+from tkinter import Tk, Label, PhotoImage
 from random import randint
 from requests import get
 from PIL import Image as im
@@ -37,6 +37,11 @@ def music():
 
 
 def on_closing(r):
+    roooot = Tk()
+    roooot.title("")
+    roooot.configure(background='black')
+    roooot.geometry(f'{roooot.winfo_screenwidth()}x{roooot.winfo_screenheight()}+0+0')
+    roooot.overrideredirect(True)
 
     r.destroy()
     if f == 2*windows_to_close:
@@ -73,6 +78,7 @@ def func1():
     roooot.configure(background='black')
     roooot.geometry(f'{roooot.winfo_screenwidth()}x{roooot.winfo_screenheight()}+0+0')
     roooot.overrideredirect(True)
+    
     root = Tk()
 
     root.title("close all windows to free your keyboard xD")
@@ -106,6 +112,3 @@ if __name__=='__main__':
     p2.start()
     p1 = Process(target=func1)
     p1.start()
-
-
-
